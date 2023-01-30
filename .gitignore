@@ -1,0 +1,12 @@
+/vendor
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+.env
+*.DS_Store
+/npm-*.log
+composer.phar
+composer.lock
+.php_cs.cache
+*.iml

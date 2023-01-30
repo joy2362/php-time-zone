@@ -105,10 +105,14 @@ class TimeZoneService
             return [];
         }
         $list = [];
+        $label = config('Timezone.LABEL_FIELD_NAME') ?? 'label';
+        $value = config('Timezone.VALUE_FIELD_NAME') ?? 'value';
 
         $timezones = DateTimeZone::listIdentifiers($this->regions[$region]);
         foreach ($timezones as $timezone) {
-            $list[] = $this->getLabel($timezone);
+            $data[$label] = $this->getLabel($timezone);
+            $data[$value] = $timezone;
+            $list[] = $data;
         }
 
         return $list;
