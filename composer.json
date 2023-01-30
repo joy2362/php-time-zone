@@ -1,0 +1,32 @@
+{
+    "name": "joy2362/php-time-zone",
+    "description": "A simple package that provide list of all timezone that php support",
+    "type": "library",
+    "require": {
+        "php": "^7.2.5|^8.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Joy2362\\PhpTimezone\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "joy2362",
+            "email": "abdullahzahidjoy@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Joy2362\\PhpTimezone\\PhpTimeZoneServiceProvider"
+            ],
+            "aliases": {
+                //'TimeZone'   =>
+                "TimeZone": "Joy2362\\PhpTimezone\\Facade"
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
