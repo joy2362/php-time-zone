@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/github/release/joy2362/php-time-zone.svg?style=flat-square)](https://github.com/jessedp/php-timezones/releases)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Total Downloads](https://img.shields.io/packagist/dt/joy2362/php-time-zone.svg?style=flat-square)](https://packagist.org/packages/jessedp/php-timezones)
+[![Total Downloads](https://img.shields.io/packagist/dt/joy2362/php-time-zone.svg?style=flat-square)](https://packagist.org/packages/joy2362/php-time-zone)
 
 A wrapper to enumerate PHP 7.* timezones list.
 ## Basics
