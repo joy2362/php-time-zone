@@ -21,11 +21,7 @@
         "laravel": {
             "providers": [
                 "Joy2362\\PhpTimezone\\PhpTimeZoneServiceProvider"
-            ],
-            "aliases": {
-                //'TimeZone'   =>
-                "TimeZone": "Joy2362\\PhpTimezone\\Facade"
-            }
+            ]
         }
     },
     "minimum-stability": "dev"
