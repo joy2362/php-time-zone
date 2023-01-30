@@ -3,6 +3,7 @@ namespace Joy2362\PhpTimezone;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Joy2362\PhpTimezone\Facades\TimeZoneFacade;
 
 class PhpTimeZoneServiceProvider extends ServiceProvider
 {
@@ -25,7 +26,7 @@ class PhpTimeZoneServiceProvider extends ServiceProvider
         });
 
         $loader = AliasLoader::getInstance();
-        $loader->alias('TimeZone', Joy2362\PhpTimezone\Facades\TimeZoneFacade::class);
+        $loader->alias('TimeZone', TimeZoneFacade::class);
 
 
     }

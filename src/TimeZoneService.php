@@ -1,5 +1,4 @@
 <?php
-
 namespace Joy2362\PhpTimezone;
 
 use DateTime;
