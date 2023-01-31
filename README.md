@@ -55,7 +55,7 @@ TimeZone::getLabelFromValue('Asia/Dhaka');
 ### 6.Get timezone value from label
 
 ``` php
-TimeZone::getValueFromLabel('Asia/Dhaka');
+TimeZone::getValueFromLabel('(GMT +06.00) Asia/Dhaka');
 ```
 
 ### 7.Get region list
@@ -70,6 +70,14 @@ TimeZone::getRegions();
 TimeZone::getSupportedTimeZone();
 ```
 
+## Config
+
+| Name             | Default | Description                                       |
+| ---------------- |---------|---------------------------------------------------|
+| DEFAULT_TIME_ZONE     | 'GMT'   | label start value support 'GMT' and 'UTC'         |
+| TIME_DIFF_SYMBOL            | '.'     | seperator between time different hour and minutes |
+| LABEL_FIELD_NAME          | 'label' | timezone list array key name for label            |
+| VALUE_FIELD_NAME          | 'value' | timezone list array key name for value            |
 ## Thanks to
 
 This is based off some lovely work by:
