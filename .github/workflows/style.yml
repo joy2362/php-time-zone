@@ -1,0 +1,29 @@
+name: php style fix psr12
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  fix_code_style:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      NODE_VERSION: 20
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: "laravel-pint"
+        uses: aglipanci/laravel-pint-action@2.1.0
+        with:
+          preset: "psr12"
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "style: fix coding style"
