@@ -1,4 +1,5 @@
 <?php
+
 namespace Joy2362\PhpTimezone\Facades;
 
 use Illuminate\Support\Facades\Facade;

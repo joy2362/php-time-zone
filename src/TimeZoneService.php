@@ -1,4 +1,5 @@
 <?php
+
 namespace Joy2362\PhpTimezone;
 
 use DateTime;
@@ -101,7 +102,7 @@ class TimeZoneService
 
     public function listByRegion($region): array
     {
-        if (!array_key_exists($region , $this->regions)){
+        if (!array_key_exists($region, $this->regions)) {
             return [];
         }
         $list = [];
@@ -124,8 +125,8 @@ class TimeZoneService
      */
     public function getValueFromLabel($label): string
     {
-        $str_zone = explode(') ' , $label);
-        return str_replace(' ' , '_' , $str_zone[1]);
+        $str_zone = explode(') ', $label);
+        return str_replace(' ', '_', $str_zone[1]);
     }
 
     /**
