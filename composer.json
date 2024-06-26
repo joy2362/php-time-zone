@@ -2,7 +2,8 @@
     "name": "joy2362/php-time-zone",
     "description": "A simple package that provide list of all timezone that php support",
     "type": "library",
-    "keywords": ["laravel", "timezone","php-time-zone"],
+    "keywords": ["laravel", "timezone" , "php-time-zone"],
+    "homepage": "https://github.com/joy2362/php-time-zone",
     "require": {
         "php": "^7.2.5|^8.0"
     },
@@ -29,5 +30,8 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "laravel/pint": "^1.16"
+    }
 }
