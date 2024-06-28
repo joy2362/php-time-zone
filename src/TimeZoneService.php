@@ -55,9 +55,9 @@ class TimeZoneService
     public function list(): array
     {
         $list = [];
-        
-        $label = Config::get('Timezone.LABEL_FIELD_NAME','label');
-        $value = Config::get('Timezone.VALUE_FIELD_NAME','value');
+
+        $label = Config::get('Timezone.LABEL_FIELD_NAME', 'label');
+        $value = Config::get('Timezone.VALUE_FIELD_NAME', 'value');
 
         foreach ($this->regions as $region) {
             $timezones = DateTimeZone::listIdentifiers($region);
@@ -110,8 +110,8 @@ class TimeZoneService
             return [];
         }
         $list = [];
-        $label = Config::get('Timezone.LABEL_FIELD_NAME','label');
-        $value = Config::get('Timezone.VALUE_FIELD_NAME','value');
+        $label = Config::get('Timezone.LABEL_FIELD_NAME', 'label');
+        $value = Config::get('Timezone.VALUE_FIELD_NAME', 'value');
 
         $timezones = DateTimeZone::listIdentifiers($this->regions[$region]);
         foreach ($timezones as $timezone) {
@@ -152,8 +152,8 @@ class TimeZoneService
             $time = new DateTime(null, new DateTimeZone($timezone));
             $time_diff = $this->getTimeDiff($time);
             $zone = $this->getZone($time);
-            
-            $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE' , 'GMT');
+
+            $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE', 'GMT');
             $defaultTimeZone = in_array($defaultTimeZone, $this->supportedTimeZone) ? $defaultTimeZone : $this->supportedTimeZone[0];
             return "({$defaultTimeZone} {$time_diff}) {$zone}";
         } catch (Exception $ex) {
@@ -167,7 +167,7 @@ class TimeZoneService
      */
     private function getTimeDiff($time): string
     {
-        $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL','.');
+        $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL', '.');
         $str_time_diff = $time->format('p');
         return str_replace(':', $time_diff_symbol, $str_time_diff);
     }
