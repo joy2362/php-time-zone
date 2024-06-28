@@ -64,7 +64,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [] , false);
+            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], false);
         }
         return $list;
     }
@@ -76,7 +76,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [] , true , false);
+            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], true, false);
         }
         return $list;
     }
@@ -119,8 +119,8 @@ class TimeZoneService
             $time = new DateTime('', new DateTimeZone($timezone));
             $time_diff = $this->getTimeDiff($time);
             $zone = $this->getZone($time);
-            
-            $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE' , 'GMT');
+
+            $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE', 'GMT');
             $defaultTimeZone = in_array($defaultTimeZone, $this->supportedTimeZone) ? $defaultTimeZone : $this->supportedTimeZone[0];
             return "({$defaultTimeZone} {$time_diff}) {$zone}";
         } catch (Exception $ex) {
@@ -134,7 +134,7 @@ class TimeZoneService
      */
     private function getTimeDiff($time): string
     {
-        $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL','.');
+        $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL', '.');
         $str_time_diff = $time->format('p');
         return str_replace(':', $time_diff_symbol, $str_time_diff);
     }
@@ -147,29 +147,29 @@ class TimeZoneService
     {
         return str_replace('_', ' ', $time->format('e'));
     }
-    
+
     /**
      * @param array $timezones
      * @param bool $isLabel
      * @param bool $isValue
      * @return array
     */
-    private function getTimeZoneList(array $timezones , bool $isLabel = true , bool $isValue = true): array
+    private function getTimeZoneList(array $timezones, bool $isLabel = true, bool $isValue = true): array
     {
-        $label = Config::get('Timezone.LABEL_FIELD_NAME','label');
-        $value = Config::get('Timezone.VALUE_FIELD_NAME','value');
-        
+        $label = Config::get('Timezone.LABEL_FIELD_NAME', 'label');
+        $value = Config::get('Timezone.VALUE_FIELD_NAME', 'value');
+
         $data = [];
 
         foreach ($timezones as $timezone) {
-            if($isLabel ){
+            if($isLabel) {
                 $data[$label] = $this->getLabel($timezone);
             }
 
-            if($isValue ){
+            if($isValue) {
                 $data[$value] = $timezone;
             }
-            
+
         }
 
         return $data;
