@@ -25,6 +25,11 @@ class TimeZoneService
     ];
 
     /**
+     * @var array|string[]
+     */
+    private array $supportedTimeZone = ['GMT', 'UTC'];
+
+    /**
      * @return array
      */
     public function getRegions(): array
@@ -35,11 +40,6 @@ class TimeZoneService
         }
         return $list;
     }
-
-    /**
-     * @var array|string[]
-     */
-    private array $supportedTimeZone = ['GMT', 'UTC'];
 
     /**
      * @return array
