@@ -5,7 +5,8 @@
     "keywords": ["laravel", "timezone" , "php-time-zone"],
     "homepage": "https://github.com/joy2362/php-time-zone",
     "require": {
-        "php": "^7.2.5|^8.0"
+        "php": ">=7.2",
+        "illuminate/support": ">=5.0"
     },
     "license": "MIT",
     "autoload": {
@@ -30,8 +31,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require-dev": {
-        "laravel/pint": "^1.16"
-    }
+    "prefer-stable": true
 }
