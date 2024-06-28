@@ -86,6 +86,18 @@ TimeZone::getRegions();
 TimeZone::getSupportedTimeZone();
 ```
 
+## Changelog
+
+Please see [Releases](../../releases) for more information on what has changed recently.
+
+## Contributing
+
+Pull requests are more than welcome. You must follow the PSR coding standards.
+
+## Security
+
+If you discover any security-related issues, please email abdullahzahidjoy@gmail.com instead of using the issue tracker.
+
 ## Thanks to
 
 This is based off some lovely work by:
