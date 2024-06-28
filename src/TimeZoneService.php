@@ -34,11 +34,7 @@ class TimeZoneService
      */
     public function getRegions(): array
     {
-        $list = [];
-        foreach ($this->regions as $key => $region) {
-            $list [] = $key;
-        }
-        return $list;
+        return array_keys($this->regions);
     }
 
     /**
@@ -55,20 +51,9 @@ class TimeZoneService
     public function list(): array
     {
         $list = [];
-        
-        $label = Config::get('Timezone.LABEL_FIELD_NAME','label');
-        $value = Config::get('Timezone.VALUE_FIELD_NAME','value');
-
         foreach ($this->regions as $region) {
-            $timezones = DateTimeZone::listIdentifiers($region);
-            $data = [];
-            foreach ($timezones as $timezone) {
-                $data[$label] = $this->getLabel($timezone);
-                $data[$value] = $timezone;
-                $list[] = $data;
-            }
+            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? []);
         }
-
         return $list;
     }
 
@@ -78,12 +63,8 @@ class TimeZoneService
     public function listWithoutLabel(): array
     {
         $list = [];
-
         foreach ($this->regions as $region) {
-            $timezones = DateTimeZone::listIdentifiers($region);
-            foreach ($timezones as $timezone) {
-                $list[] = $timezone;
-            }
+            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [] , false);
         }
         return $list;
     }
@@ -94,12 +75,8 @@ class TimeZoneService
     public function listWithoutValue(): array
     {
         $list = [];
-
         foreach ($this->regions as $region) {
-            $timezones = DateTimeZone::listIdentifiers($region);
-            foreach ($timezones as $timezone) {
-                $list[] = $this->getLabel($timezone);
-            }
+            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [] , true , false);
         }
         return $list;
     }
@@ -109,18 +86,8 @@ class TimeZoneService
         if (!array_key_exists($region, $this->regions)) {
             return [];
         }
-        $list = [];
-        $label = Config::get('Timezone.LABEL_FIELD_NAME','label');
-        $value = Config::get('Timezone.VALUE_FIELD_NAME','value');
 
-        $timezones = DateTimeZone::listIdentifiers($this->regions[$region]);
-        foreach ($timezones as $timezone) {
-            $data[$label] = $this->getLabel($timezone);
-            $data[$value] = $timezone;
-            $list[] = $data;
-        }
-
-        return $list;
+        return $this->getTimeZoneList(DateTimeZone::listIdentifiers($this->regions[$region]) ?? []);
     }
 
     /**
@@ -149,7 +116,7 @@ class TimeZoneService
     private function getLabel($timezone): string
     {
         try {
-            $time = new DateTime(null, new DateTimeZone($timezone));
+            $time = new DateTime('', new DateTimeZone($timezone));
             $time_diff = $this->getTimeDiff($time);
             $zone = $this->getZone($time);
             
@@ -173,11 +140,38 @@ class TimeZoneService
     }
 
     /**
-     * @param $time
-     * @return string
-     */
+    * @param $time
+    * @return string
+    */
     private function getZone($time): string
     {
         return str_replace('_', ' ', $time->format('e'));
+    }
+    
+    /**
+     * @param array $timezones
+     * @param bool $isLabel
+     * @param bool $isValue
+     * @return array
+    */
+    private function getTimeZoneList(array $timezones , bool $isLabel = true , bool $isValue = true): array
+    {
+        $label = Config::get('Timezone.LABEL_FIELD_NAME','label');
+        $value = Config::get('Timezone.VALUE_FIELD_NAME','value');
+        
+        $data = [];
+
+        foreach ($timezones as $timezone) {
+            if($isLabel ){
+                $data[$label] = $this->getLabel($timezone);
+            }
+
+            if($isValue ){
+                $data[$value] = $timezone;
+            }
+            
+        }
+
+        return $data;
     }
 }
