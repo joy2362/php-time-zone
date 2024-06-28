@@ -88,7 +88,7 @@ TimeZone::getSupportedTimeZone();
 
 ## Changelog
 
-Please see [Releases](../../releases) for more information on what has changed recently.
+Please see [Changelog](./CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
