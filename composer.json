@@ -26,7 +26,7 @@
             "Joy2362\\PhpTimezone\\PhpTimeZoneServiceProvider"
           ],
           "aliases": {
-            "TimeZone": "Joy2362\\PhpTimezone\\Facades\\TimeZoneFacade"
+            "TimeZone": "Joy2362\\PhpTimezone\\Facades\\TimeZone"
           }
         }
     },
