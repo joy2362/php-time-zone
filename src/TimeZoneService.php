@@ -52,7 +52,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list = array_merge($list , $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? []));
+            $list = array_merge($list, $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? []));
         }
         return $list;
     }
@@ -64,7 +64,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list = array_merge($list , $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'value'));
+            $list = array_merge($list, $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'value'));
         }
         return $list;
     }
@@ -76,7 +76,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list = array_merge($list , $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'label'));
+            $list = array_merge($list, $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'label'));
         }
         return $list;
     }
@@ -162,7 +162,7 @@ class TimeZoneService
         $data = [];
 
         foreach ($timezones as $timezone) {
-           
+
             switch ($type) {
                 case 'label':
                     $data[] = $this->getLabel($timezone);
@@ -171,7 +171,7 @@ class TimeZoneService
                 case 'value':
                     $data[] = $timezone;
                     break;
-                
+
                 default:
                     $zone = [
                         "{$label}" => $this->getLabel($timezone),
@@ -179,7 +179,7 @@ class TimeZoneService
                     ];
                     $data[] = $zone;
                     break;
-            }            
+            }
         }
         return $data;
     }
