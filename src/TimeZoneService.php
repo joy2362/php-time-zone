@@ -122,7 +122,6 @@ class TimeZoneService
 
             $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE', 'GMT');
 
-            $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE', 'GMT');
             $defaultTimeZone = in_array($defaultTimeZone, $this->supportedTimeZone) ? $defaultTimeZone : $this->supportedTimeZone[0];
             return "({$defaultTimeZone} {$time_diff}) {$zone}";
         } catch (Exception $ex) {
