@@ -136,7 +136,6 @@ class TimeZoneService
     private function getTimeDiff($time): string
     {
         $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL', '.');
-        $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL', '.');
         $str_time_diff = $time->format('p');
         return str_replace(':', $time_diff_symbol, $str_time_diff);
     }
