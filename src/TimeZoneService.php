@@ -52,7 +52,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? []);
+            $list = array_merge($list , $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? []));
         }
         return $list;
     }
@@ -64,7 +64,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], false);
+            $list = array_merge($list , $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'value'));
         }
         return $list;
     }
@@ -76,7 +76,7 @@ class TimeZoneService
     {
         $list = [];
         foreach ($this->regions as $region) {
-            $list[] = $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], true, false);
+            $list = array_merge($list , $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'label'));
         }
         return $list;
     }
@@ -154,7 +154,7 @@ class TimeZoneService
      * @param bool $isValue
      * @return array
     */
-    private function getTimeZoneList(array $timezones, bool $isLabel = true, bool $isValue = true): array
+    private function getTimeZoneList(array $timezones, string $type = 'list'): array
     {
         $label = Config::get('Timezone.LABEL_FIELD_NAME', 'label');
         $value = Config::get('Timezone.VALUE_FIELD_NAME', 'value');
@@ -162,16 +162,25 @@ class TimeZoneService
         $data = [];
 
         foreach ($timezones as $timezone) {
-            if($isLabel) {
-                $data[$label] = $this->getLabel($timezone);
-            }
+           
+            switch ($type) {
+                case 'label':
+                    $data[] = $this->getLabel($timezone);
+                    break;
 
-            if($isValue) {
-                $data[$value] = $timezone;
-            }
-
+                case 'value':
+                    $data[] = $timezone;
+                    break;
+                
+                default:
+                    $zone = [
+                        "{$label}" => $this->getLabel($timezone),
+                        "{$value}" => $timezone,
+                    ];
+                    $data[] = $zone;
+                    break;
+            }            
         }
-
         return $data;
     }
 }
