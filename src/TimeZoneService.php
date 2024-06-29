@@ -121,6 +121,8 @@ class TimeZoneService
             $zone = $this->getZone($time);
 
             $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE', 'GMT');
+
+            $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE', 'GMT');
             $defaultTimeZone = in_array($defaultTimeZone, $this->supportedTimeZone) ? $defaultTimeZone : $this->supportedTimeZone[0];
             return "({$defaultTimeZone} {$time_diff}) {$zone}";
         } catch (Exception $ex) {
@@ -134,6 +136,7 @@ class TimeZoneService
      */
     private function getTimeDiff($time): string
     {
+        $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL', '.');
         $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL', '.');
         $str_time_diff = $time->format('p');
         return str_replace(':', $time_diff_symbol, $str_time_diff);
