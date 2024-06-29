@@ -2,15 +2,16 @@
 
 [![Latest Version](https://img.shields.io/github/release/joy2362/php-time-zone.svg?style=flat-square)](https://github.com/jessedp/php-timezones/releases)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://scrutinizer-ci.com/g/joy2362/php-time-zone/badges/build.png?b=main)](https://scrutinizer-ci.com/g/joy2362/php-time-zone/build-status/main)
 [![Total Downloads](https://img.shields.io/packagist/dt/joy2362/php-time-zone.svg?style=flat-square)](https://packagist.org/packages/joy2362/php-time-zone)
 
 A wrapper to enumerate PHP 7.x, 8.x timezones list.
 
 ## Basics
 
-- Creates timezone arrays based on PHP's supported timezones with optional grouping by region
-- Lists are sorted by offset from high (+14:00) to low (-11:00)
-- Return as php arrays for whatever use your heart desires
+-   Creates timezone arrays based on PHP's supported timezones with optional grouping by region
+-   Lists are sorted by offset from high (+14:00) to low (-11:00)
+-   Return as php arrays for whatever use your heart desires
 
 ## Installation
 
@@ -85,8 +86,20 @@ TimeZone::getRegions();
 TimeZone::getSupportedTimeZone();
 ```
 
+## Changelog
+
+Please see [Changelog](./CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Pull requests are more than welcome. You must follow the PSR coding standards.
+
+## Security
+
+If you discover any security-related issues, please email abdullahzahidjoy@gmail.com instead of using the issue tracker.
+
 ## Thanks to
 
 This is based off some lovely work by:
 
-- https://github.com/jessedp/php-timezones
+-   https://github.com/jessedp/php-timezones

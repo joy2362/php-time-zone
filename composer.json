@@ -22,9 +22,12 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
-                "Joy2362\\PhpTimezone\\PhpTimeZoneServiceProvider"
-            ]
+          "providers": [
+            "Joy2362\\PhpTimezone\\PhpTimeZoneServiceProvider"
+          ],
+          "aliases": {
+            "TimeZone": "Joy2362\\PhpTimezone\\Facades\\TimeZoneFacade"
+          }
         }
     },
     "config": {

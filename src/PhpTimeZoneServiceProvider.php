@@ -2,19 +2,15 @@
 
 namespace Joy2362\PhpTimezone;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Joy2362\PhpTimezone\Facades\TimeZoneFacade;
 
 class PhpTimeZoneServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-
         if ($this->app->runningInConsole()) {
-
             $this->publishes([
-                __DIR__.'/./config/config.php' => config_path('Timezone.php')
+                __DIR__.'/./config/config.php' => $this->app->configPath('Timezone.php')
             ], 'config');
         }
     }
@@ -25,10 +21,5 @@ class PhpTimeZoneServiceProvider extends ServiceProvider
         $this->app->bind('TimeZoneService', function () {
             return new TimeZoneService();
         });
-
-        $loader = AliasLoader::getInstance();
-        $loader->alias('TimeZone', TimeZoneFacade::class);
-
-
     }
 }
