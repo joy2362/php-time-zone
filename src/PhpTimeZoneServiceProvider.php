@@ -3,6 +3,7 @@
 namespace Joy2362\PhpTimezone;
 
 use Illuminate\Support\ServiceProvider;
+use Joy2362\PhpTimezone\{Contract\TimeZoneManager,Service\TimeZoneService};
 
 class PhpTimeZoneServiceProvider extends ServiceProvider
 {
@@ -18,8 +19,6 @@ class PhpTimeZoneServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/config/config.php', 'Timezone');
-        $this->app->bind('TimeZoneService', function () {
-            return new TimeZoneService();
-        });
+        $this->app->bind(TimeZoneManager::class, TimeZoneService::class);
     }
 }

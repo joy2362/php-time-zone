@@ -1,13 +1,14 @@
 <?php
 
-namespace Joy2362\PhpTimezone;
+namespace Joy2362\PhpTimezone\Service;
 
 use DateTime;
 use Exception;
 use DateTimeZone;
 use Illuminate\Support\Facades\Config;
+use Joy2362\PhpTimezone\Contract\TimeZoneManager;
 
-class TimeZoneService
+class TimeZoneService implements TimeZoneManager
 {
     /**
      * @var array
@@ -91,10 +92,10 @@ class TimeZoneService
     }
 
     /**
-     * @param $label
+     * @param string $label
      * @return string
      */
-    public function getValueFromLabel($label): string
+    public function getValueFromLabel(string $label): string
     {
         $str_zone = explode(') ', $label);
         return str_replace(' ', '_', $str_zone[1]);
@@ -104,7 +105,7 @@ class TimeZoneService
      * @param $value
      * @return string
      */
-    public function getLabelFromValue($value): string
+    public function getLabelFromValue(string $value): string
     {
         return $this->getLabel($value);
     }
@@ -113,7 +114,7 @@ class TimeZoneService
      * @param $timezone
      * @return string
      */
-    private function getLabel($timezone): string
+    private function getLabel(string $timezone): string
     {
         try {
             $time = new DateTime('', new DateTimeZone($timezone));
@@ -133,7 +134,7 @@ class TimeZoneService
      * @param $time
      * @return string
      */
-    private function getTimeDiff($time): string
+    private function getTimeDiff(string $time): string
     {
         $time_diff_symbol = Config::get('Timezone.TIME_DIFF_SYMBOL', '.');
         $str_time_diff = $time->format('p');
@@ -144,7 +145,7 @@ class TimeZoneService
     * @param $time
     * @return string
     */
-    private function getZone($time): string
+    private function getZone(string $time): string
     {
         return str_replace('_', ' ', $time->format('e'));
     }
