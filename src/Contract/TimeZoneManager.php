@@ -8,21 +8,21 @@ interface TimeZoneManager {
      *
      * @return array
      */
-    public function getRegions(): array;
+    public function getRegions(?string $search): array;
 
     /**
      * Get the list of supported time zones.
      *
      * @return array
      */
-    public function getSupportedTimeZone(): array;
+    public function getSupportedTimeZone(?string $search): array;
 
      /**
      * List all time zones with labels and values.
      *
      * @return array
      */
-    public function list(): array;
+    public function list(?string $search): array;
 
     /**
      * List time zones by region.
