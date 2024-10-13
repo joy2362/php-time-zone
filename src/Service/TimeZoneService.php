@@ -5,9 +5,7 @@ namespace Joy2362\PhpTimezone\Service;
 use DateTime;
 use Exception;
 use DateTimeZone;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\{Collection, Facades\Config, Str};
 use Joy2362\PhpTimezone\Contract\TimeZoneManager;
 
 class TimeZoneService implements TimeZoneManager
@@ -35,85 +33,66 @@ class TimeZoneService implements TimeZoneManager
     /**
      * @return array
      */
-    public function getRegions(?string $search): array
+    public function getRegions(?string $search = ''): array
     {
-        $regions = collect(array_keys($this->regions));
-       
-        $regions = $regions->when(!empty($search), function (Collection $regions) use($search){
-            return $regions->filter(function($item) use($search){
-                return Str::contains(Str::lower($item), Str::lower($search));
-            });
-        });
-
-        return $regions->values()->all();
+        return $this->search(array_keys($this->regions), '', $search);
     }
 
     /**
      * @return array
      */
-    public function getSupportedTimeZone(?string $search): array
+    public function getSupportedTimeZone(?string $search = ''): array
     {
-        $supportedTimeZone = collect($this->supportedTimeZone);
-       
-        $supportedTimeZone = $supportedTimeZone->when(!empty($search), function (Collection $supportedTimeZone) use($search){
-            return $supportedTimeZone->filter(function($item) use($search){
-                return Str::contains(Str::lower($item), Str::lower($search));
-            });
-        });
-
-        return $supportedTimeZone->values()->all();
+        return $this->search($this->supportedTimeZone, '', $search);
     }
 
     /**
      * @return array
      */
-    public function list(?string $search = null): array
+    public function list(?string $search = ''): array
     {
         $list = [];
         foreach ($this->regions as $region) {
             $list = array_merge($list, $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? []));
         }
-        $listCollection = collect($list);
-        $listCollection = $listCollection->when(!empty($search), function (Collection $listCollection) use($search){
-            return $listCollection->filter(function($item) use($search){
-                return Str::contains(Str::lower($item['label']), Str::lower($search));
-            });
-        });
 
-        return $listCollection->values()->toArray();
+        return $this->search($list, 'label', $search);
     }
 
     /**
      * @return array
      */
-    public function listWithoutLabel(): array
+    public function listWithoutLabel(?string $search = ''): array
     {
         $list = [];
         foreach ($this->regions as $region) {
             $list = array_merge($list, $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'value'));
         }
-        return $list;
+
+        return $this->search($list, '', $search);
     }
 
     /**
      * @return array
      */
-    public function listWithoutValue(): array
+    public function listWithoutValue(?string $search = ''): array
     {
         $list = [];
         foreach ($this->regions as $region) {
             $list = array_merge($list, $this->getTimeZoneList(DateTimeZone::listIdentifiers($region) ?? [], 'label'));
         }
-        return $list;
+
+        return $this->search($list, '', $search);
     }
 
-    public function listByRegion($region): array
+    public function listByRegion(string $region, ?string $search = ''): array
     {
-        if (!array_key_exists($region, $this->regions)) {
+        if (!array_key_exists(ucfirst($region), $this->regions)) {
             return [];
         }
 
-        return $this->getTimeZoneList(DateTimeZone::listIdentifiers($this->regions[$region]) ?? []);
+        $list = $this->getTimeZoneList(DateTimeZone::listIdentifiers($this->regions[ucfirst($region)]) ?? []);
+        return $this->search($list, 'label', $search);
     }
 
     /**
@@ -122,8 +101,8 @@ class TimeZoneService implements TimeZoneManager
      */
     public function getValueFromLabel(string $label): string
     {
-        $str_zone = explode(') ', $label);
-        return str_replace(' ', '_', $str_zone[1]);
+        $zone = explode(') ', $label);
+        return  isset($zone[1]) ? str_replace(' ', '_', $zone[1]) : '';
     }
 
     /**
@@ -142,12 +121,10 @@ class TimeZoneService implements TimeZoneManager
     private function getLabel(string $timezone): string
     {
         try {
-            $time = new DateTime('', new DateTimeZone($timezone));
+            $time = new DateTime('', new DateTimeZone(ucfirst($timezone)));
             $time_diff = $this->getTimeDiff($time);
             $zone = $this->getZone($time);
-
             $defaultTimeZone = Config::get('Timezone.DEFAULT_TIME_ZONE', 'GMT');
-
             $defaultTimeZone = in_array($defaultTimeZone, $this->supportedTimeZone) ? $defaultTimeZone : $this->supportedTimeZone[0];
             return "({$defaultTimeZone} {$time_diff}) {$zone}";
         } catch (Exception $ex) {
@@ -209,5 +186,17 @@ class TimeZoneService implements TimeZoneManager
             }
         }
         return $data;
+    }
+
+    /**
+     * @param array $list
+     * @param ?string $search
+     * @return array
+    */
+    private function search(array $list, ?string $key = '', ?string $search): array 
+    {
+        return collect($list)->when(!empty($search), function (Collection $collection) use($search, $key){
+            return $collection->filter(fn($item) => Str::contains(Str::lower(!empty($key) ? $item[$key] :$item), Str::lower($search)));
+        })->values()->toArray();
     }
 }
